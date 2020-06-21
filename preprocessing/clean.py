@@ -1,7 +1,7 @@
 import json
 from glob import glob
 
-files = glob('datasets/TaskMaster/*')
+files = glob('datasets/TaskMaster/*.json')
 dump_file = 'datasets/TaskMaster.json'
 
 conversations = []
