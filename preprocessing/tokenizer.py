@@ -11,6 +11,5 @@ open('datasets/For Tokenizer/TaskMaster.txt', 'w').write(t)
 
 from tokenizers import ByteLevelBPETokenizer
 tokenizer = ByteLevelBPETokenizer(lowercase=True)
-tokenizer.train(['datasets/For Tokenizer/wikitext.txt', 'datasets/For Tokenizer/TaskMaster.txt'], vocab_size=40000)
-
-os.delete('datasets/For Tokenizer/TaskMaster.txt')
+tokenizer.train(['datasets/For Tokenizer/TaskMaster.txt'], vocab_size=30000, min_frequency=5, special_tokens = ['<eos>', '<eoc>'])
+tokenizer.save('Tokenizer/')
