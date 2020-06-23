@@ -1,7 +1,8 @@
 import os
 import json
 file = json.load(open('datasets/TaskMaster.json'))
-
+length = len(file)
+file = file[:length // 2]
 t = ''
 for data in file:
     for text in data:
