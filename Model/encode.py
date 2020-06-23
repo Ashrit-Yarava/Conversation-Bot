@@ -2,11 +2,15 @@ import torch
 import json
 from transformers import AutoTokenizer
 from tqdm import tqdm
+from random import sample
+
 tokenizer = AutoTokenizer.from_pretrained('distilgpt2')
 dataset = json.load(open('datasets/TaskMaster.json'))
 
 length = len(dataset)
-dataset = dataset[:len(dataset) // 5]
+dataset = sample(dataset, 17034 // 35)
+
+print(len(dataset))
 
 text_data = ''
 for conversation in tqdm(dataset):
