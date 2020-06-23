@@ -27,7 +27,9 @@ opt = torch.optim.Adam(gpt2.parameters(), lr=learning_rate)
 loader = torch.utils.data.DataLoader(Dataset(dataset, 25), batch_size=batch_size, num_workers=16)
 
 for epoch in range(epochs):
+    print('-' * 40)
     print(f"Epoch: {epoch + 1}/{epochs}")
+    print('-' * 40)
     for idx, (sequence, label) in enumerate(loader):
         if use_cuda:
             sequence, label = sequence.cuda(), label.cuda()
@@ -38,6 +40,6 @@ for epoch in range(epochs):
         opt.step()
 
         if idx % 100 == 0:
-            print(f"Index: {idx}\t\tLoss: {loss.item()}")
+            print(f"\tIndex: {idx}\t\tLoss: {loss.item()}")
 
 gpt2.save_pretrained('Model/Checkpoints/')
