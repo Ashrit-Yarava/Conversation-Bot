@@ -15,15 +15,22 @@ class Dataset:
 dataset = torch.load('datasets/TaskMaster.pt')
 gpt2 = AutoModelWithLMHead.from_pretrained('distilgpt2')
 
+use_cuda = torch.cuda.is_available()
+if use_cuda:
+    gpt2 = gpt2.cuda()
+
 epochs = 10
 learning_rate = 1e-3
 batch_size = 64
 
 opt = torch.optim.Adam(gpt2.parameters(), lr=learning_rate)
+loader = torch.utils.data.DataLoader(Dataset(dataset, 25), batch_size=batch_size, num_workers=16)
 
 for epoch in range(epochs):
     print(f"Epoch: {epoch + 1}/{epochs}")
     for idx, (sequence, label) in enumerate(loader):
+        if use_cuda:
+            sequence, label = sequence.cuda(), label.cuda()
         opt.zero_grad()
         logits = gpt2(sequence)[0][:, -1, :]
         loss = f.cross_entropy(logits, label)
