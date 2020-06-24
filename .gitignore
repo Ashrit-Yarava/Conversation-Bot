@@ -1,4 +1,4 @@
 .venv/
 .vscode/
-datasets/For Tokenizer
-Model/Checkpoints/*/
+Model-Building/datasets/For Tokenizer
+Model-Building/Model/Checkpoints/*/
