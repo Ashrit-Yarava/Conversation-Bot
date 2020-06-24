@@ -2,3 +2,4 @@
 .vscode/
 Model-Building/datasets/For Tokenizer
 Model-Building/Model/Checkpoints/*/
+Checkpoints/*/
