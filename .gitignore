@@ -1,6 +1,5 @@
 .venv/
 .vscode/
 datasets/For Tokenizer/
-Model/GPT-2/Training-Checkpoints/*/
 */config.json
-
+*/Checkpoints/*
