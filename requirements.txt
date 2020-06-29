@@ -1,5 +1,6 @@
-torch
-numpy
-transformers==2.11.0
-tokenizers
-ipython
+numpy==1.19.0
+requests==2.24.0
+tokenizers==0.8.0rc4
+torch==1.5.1
+tqdm==4.47.0
+transformers==3.0.0
