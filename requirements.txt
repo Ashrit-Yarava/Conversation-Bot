@@ -1,5 +1,5 @@
 torch
 numpy
-transformers
+transformers==2.11.0
 tokenizers
 ipython
