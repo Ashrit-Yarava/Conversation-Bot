@@ -19,10 +19,11 @@ class Dataset(torch.utils.data.Dataset):
 
 use_cuda = torch.cuda.is_available()
 
-parser = argparse.ArgumentParser(help='Simple trainer script.')
+parser = argparse.ArgumentParser(description='Simple trainer script.')
 parser.add_argument('data_file', type=str, help='Path to the .pt file.')
 parser.add_argument('sequence_length', type=int, help='Length of the sequence for the model.')
 parser.add_argument('epochs', type=int, help='Number of epochs to train for.')
+parser.add_argument('batch_size', type=int, help='Batch size for training.')
 parser.add_argument('base_dir', type=str, help='Path to the directory containing the base model.')
 parser.add_argument('save_dir', type=str, help='Path to the directory where the model should be saved.')
 args = parser.parse_args()
@@ -31,6 +32,7 @@ gpt2 = AutoModelWithLMHead.from_pretrained(args.base_dir)
 
 if use_cuda:
     gpt2 = gpt2.cuda()
+
 optimizer = torch.optim.Adam(gpt2.parameters(), lr=1e-4)
 data = torch.load(args.data_file)
 dataset = Dataset(data, args.sequence_length)
@@ -44,7 +46,7 @@ for epoch in range(args.epochs):
         
         optimizer.zero_grad()
         logits = gpt2(sequence)[0][:, -1, :]
-        loss = f.cross_entropy(logits, label)
+        loss = f.cross_entropy(logits, length)
         loss.backward()
         optimizer.step()
 
