@@ -2,4 +2,4 @@
 .vscode/
 datasets/For Tokenizer/
 */config.json
-*/Checkpoints/*
+Checkpoints/*/
