@@ -4,7 +4,7 @@ import torch.nn.functional as f
 
 from transformers import AutoModelWithLMHead
 
-class Dataset(torch.utils.data.Dataset):
+class Dataset(torch.utils.data.Dataset): # Simple dataset to get sequences and labels.
     def __init__(self, data, length):
         super(Dataset, self).__init__()
 
@@ -17,7 +17,7 @@ class Dataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         return self.data[idx:idx + self.length], self.data[idx + self.length]
 
-use_cuda = torch.cuda.is_available()
+use_cuda = torch.cuda.is_available() # Check for CUDA.
 
 parser = argparse.ArgumentParser(description='Simple trainer script.')
 parser.add_argument('data_file', type=str, help='Path to the .pt file.')
@@ -28,10 +28,10 @@ parser.add_argument('base_dir', type=str, help='Path to the directory containing
 parser.add_argument('save_dir', type=str, help='Path to the directory where the model should be saved.')
 args = parser.parse_args()
 
-gpt2 = AutoModelWithLMHead.from_pretrained(args.base_dir)
+gpt2 = AutoModelWithLMHead.from_pretrained(args.base_dir) # Load model for training.
 
-if use_cuda:
-    gpt2 = gpt2.cuda()
+if use_cuda: # Convert to cuda if available.
+    gpt2 = gpt2.cuda() 
 
 optimizer = torch.optim.Adam(gpt2.parameters(), lr=1e-4)
 data = torch.load(args.data_file)
@@ -45,12 +45,12 @@ for epoch in range(args.epochs):
             sequence, length = sequence.cuda(), length.cuda()
         
         optimizer.zero_grad()
-        logits = gpt2(sequence)[0][:, -1, :]
-        loss = f.cross_entropy(logits, length)
+        logits = gpt2(sequence)[0][:, -1, :] # Get Logits.
+        loss = f.cross_entropy(logits, length) # Calculate Loss.
         loss.backward()
         optimizer.step()
 
-        if idx % 100 == 0:
+        if idx % 100 == 0: # Print progress every 100 steps.
             print(f"\tIndex: {idx}\t\tLoss: {loss.item()}")
 
-gpt2.save_pretrained(args.save_dir)
+gpt2.save_pretrained(args.save_dir) # Save the trained model.
