@@ -22,3 +22,6 @@ Create a directory inside the datasets and preprocessing for converting and anal
 ---
 To train the model on google colab, first run the `bash colab-setup.sh` to set up the environment.
 
+## Model Checkpoint
+---
+The Checkpoints directory contains a basic model checkpoint trained using transformers' distilgpt2 on the TaskMaster dataset.

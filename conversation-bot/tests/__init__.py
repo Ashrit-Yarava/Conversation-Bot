@@ -1,0 +1,4 @@
+from conversation_bot.conversation import main
+
+if __name__ == '__main__':
+    main()
